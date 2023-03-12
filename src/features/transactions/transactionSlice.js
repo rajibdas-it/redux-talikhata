@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 import {
   addTransaction,
   deleteTransaction,
@@ -63,6 +64,54 @@ const transactionsSlice = createSlice({
         state.transactions = [];
         state.isError = true;
         state.error = action?.error?.message;
+      })
+      .addCase(createTransaction.pending, (state) => {
+        state.isLoading = true;
+        state.transactions = [];
+        state.isError = false;
+      })
+      .addCase(createTransaction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.transactions.push(action.payload);
+        state.isError = false;
+      })
+      .addCase(createTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.transactions = [];
+        state.isError = true;
+        state.error = action?.error?.message;
+      })
+      .addCase(updateTransaction.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(updateTransaction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.transactions = action.payload;
+      })
+      .addCase(updateTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.transactions = [];
+        state.isError = true;
+        state.error = action?.error?.message;
+      })
+      .addCase(removeTransaction.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(removeTransaction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.transactions = action.payload;
+        state.isError = false;
+      })
+      .addCase(removeTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.transactions = [];
+        state.isError = true;
+        state.error = action?.error?.message;
       });
   },
 });
+
+export default transactionsSlice.reducer;
