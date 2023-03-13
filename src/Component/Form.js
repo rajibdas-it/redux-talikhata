@@ -26,7 +26,7 @@ const Form = () => {
     const data = {
       name,
       type,
-      amount,
+      amount: Number(amount),
     };
     dispatch(createTransaction(data));
     reset();
@@ -56,7 +56,7 @@ const Form = () => {
     const data = {
       name,
       type,
-      amount,
+      amount: Number(amount),
     };
     dispatch(updateTransaction({ id, data }));
     reset();
