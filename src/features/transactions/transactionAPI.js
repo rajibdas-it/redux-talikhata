@@ -11,11 +11,10 @@ export const addTransaction = async (data) => {
 };
 
 export const editTransaction = async (id, data) => {
-  const res = await axiosInstance.put(`/transactions/${id}`, data);
+  const res = await axiosInstance.patch(`/transactions/${id}`, data);
   return res.data;
 };
 
 export const deleteTransaction = async (id) => {
-  const res = axiosInstance.delete(`/transaction/${id}`);
-  return res.data;
+  const res = axiosInstance.delete(`/transactions/${id}`);
 };

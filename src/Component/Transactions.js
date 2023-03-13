@@ -15,14 +15,17 @@ const Transactions = () => {
 
   let content = null;
 
-  console.log(transactions);
+  // console.log(transactions);
 
   if (isLoading) content = <p>Loading....</p>;
   if (!isLoading && isError) content = <p>There was an error occoured</p>;
   if (!isLoading && !isError && transactions.length > 0) {
     content = transactions.map((transaction) => (
-      <Transaction transaction={transaction} />
+      <Transaction key={transaction.id} transaction={transaction} />
     ));
+  }
+  if (!isLoading && !isError && transactions.length === 0) {
+    content = <p>No Transaction Found</p>;
   }
   return (
     <>
