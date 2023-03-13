@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import capitalize from "../utils/capitalize";
 import commaInThousandNum from "../utils/commaInThousandNum";
+import inWords from "../utils/inWords";
 
 const CurrentBalance = () => {
   const { transactions } = useSelector((state) => state.transactions);
@@ -29,6 +31,12 @@ const CurrentBalance = () => {
         <span>৳ </span>
         <span>{commaInThousandNum(currentAmount)}</span>
       </h3>
+      <p style={{ marginTop: "15px" }}>
+        {" "}
+        <span style={{ fontWeight: "bold" }}>Inword: </span>
+        {/* style={{ textTransform: "capitalize" }} */}
+        <span>{capitalize(inWords(currentAmount))}</span>
+      </p>
     </div>
   );
 };
