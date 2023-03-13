@@ -10,6 +10,7 @@ const initialState = {
   transactions: [],
   isLoading: false,
   isError: false,
+  success: false,
   error: "",
 };
 
@@ -59,6 +60,7 @@ const transactionsSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.transactions = action.payload;
+        state.success = true;
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.isLoading = false;
@@ -75,6 +77,7 @@ const transactionsSlice = createSlice({
         state.isLoading = false;
         state.transactions.push(action.payload);
         state.isError = false;
+        state.success = true;
       })
       .addCase(createTransaction.rejected, (state, action) => {
         state.isLoading = false;
@@ -93,6 +96,7 @@ const transactionsSlice = createSlice({
           (t) => t.id === action.payload.id
         );
         state.transactions[indexToUpdate] = action.payload;
+        state.success = true;
       })
       .addCase(updateTransaction.rejected, (state, action) => {
         state.isLoading = false;
@@ -110,6 +114,7 @@ const transactionsSlice = createSlice({
         state.transactions = state.transactions.filter(
           (t) => t.id !== action.payload.id
         );
+        state.success = true;
       })
       .addCase(removeTransaction.rejected, (state, action) => {
         state.isLoading = false;

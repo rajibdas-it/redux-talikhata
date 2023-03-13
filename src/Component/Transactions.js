@@ -5,26 +5,24 @@ import Transaction from "./Transaction";
 
 const Transactions = () => {
   const dispatch = useDispatch();
-  const transactions = useSelector((state) => state.transactions);
-
-  // const { isLoading, isError, transactions, error } = transactions;
-
   useEffect(() => {
     dispatch(fetchTransactions());
   }, [dispatch]);
 
+  const { isLoading, isError, transactions, error } = useSelector(
+    (state) => state.transactions
+  );
+
   let content = null;
 
-  if (transactions.isLoading) content = <p>Loading....</p>;
-  if (!transactions.isLoading && transactions.isError)
-    content = <p>There was an error occoured</p>;
+  console.log(transactions);
 
-  if (
-    !transactions.isLoading &&
-    !transactions.isError &&
-    transactions.transactions.length > 0
-  ) {
-    content = transactions.transactions.map((transaction) => <Transaction />);
+  if (isLoading) content = <p>Loading....</p>;
+  if (!isLoading && isError) content = <p>There was an error occoured</p>;
+  if (!isLoading && !isError && transactions.length > 0) {
+    content = transactions.map((transaction) => (
+      <Transaction transaction={transaction} />
+    ));
   }
   return (
     <>
